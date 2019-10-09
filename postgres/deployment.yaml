@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-camunda
+  labels:
+    app: camunda-pasq
+spec:
+  selector:
+    matchLabels:
+      app: camunda-pasq
+  template:
+    metadata:
+      labels:
+        app: camunda-pasq
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:12.0-alpine
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5432
+          name: postgres
+        env:
+          - name: POSTGRES_DB
+            value: camunda-db
+          - name: POSTGRES_USER
+            value: camunda
+          - name: POSTGRES_PASSWORD
+            value: admin123  
+

@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: camunda-pasq
+  labels:
+    app: camunda-pasq
+spec:
+  selector:
+    matchLabels:
+      app: camunda-pasq
+  template:
+    metadata:
+      labels:
+        app: camunda-pasq
+    spec:
+      containers:
+      - name: camunda-pasq
+        image: camunda/camunda-bpm-platform:7.11.0
+        securityContext:
+          runAsUser: 1000
+          allowPrivilegeEscalation: false
+        resources:
+          limits:
+            memory: "1G"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+          name: http
+        - containerPort: 9404
+          name: metrics
+        env:
+          - name: DB_DRIVER
+            value: org.postgresql.Driver
+          - name: DB_URL
+            value: jdbc:postgresql://postgres-svc:5432/process-engine 
+          - name: DB_USERNAME
+            value: camunda
+          - name: DB_PASSWORD
+            value: admin123
+        # volumeMounts:
+        #   - mountPath: /etc/config
+        #     name: config
+        # livenessProbe:
+        #   initialDelaySeconds: 60
+        #   periodSeconds: 15
+        #   httpGet:
+        #     path: /camunda
+        #     port: http
+        # readynessProbe:
+        #   initialDelaySeconds: 10
+        #   periodSeconds: 15
+        #   httpGet:
+        #     path: /camunda
+        #     port: http
+      # volumes:
+      # - name: config
+      #   configMap:
+      #     name: config
+      #     defaultMode: 0744
+
+          
+
