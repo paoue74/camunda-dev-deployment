@@ -7,7 +7,6 @@ metadata:
 spec:
   selector:
     app: camunda-pasq
-  type: NodePort
   ports:
   - port: 8080
     targetPort: http

@@ -32,7 +32,7 @@ spec:
           - name: DB_DRIVER
             value: org.postgresql.Driver
           - name: DB_URL
-            value: jdbc:postgresql://postgres-svc:5432/process-engine 
+            value: jdbc:postgresql://postgres-camunda:5432/camunda-db
           - name: DB_USERNAME
             value: camunda
           - name: DB_PASSWORD
